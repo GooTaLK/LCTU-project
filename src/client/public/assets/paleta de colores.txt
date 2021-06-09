@@ -1,0 +1,8 @@
+bg-blue: #5682a3
+bg-gray: #e7ebf0
+card-bg: #ffffff
+telegram-icon-bg: #456f92
+
+color: #fafafa
+bg: #fff
+color-gray: #a1a1a1

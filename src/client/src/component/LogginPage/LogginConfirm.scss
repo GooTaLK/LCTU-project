@@ -1,0 +1,34 @@
+.confirm {
+	padding: 3rem 6rem;
+	text-align: center;
+	background-color: #fff;
+	font-size: 0.92rem;
+	word-spacing: 2px;
+
+	&__value {
+		font-weight: bold;
+	}
+
+	&__btn {
+		text-align: right;
+		transform: translate(50%, 100%);
+
+		&-cancel,
+		&-ok {
+			cursor: pointer;
+			margin-right: 1rem;
+			padding: 0.5rem 10px;
+			font-size: 0.8rem;
+			font-weight: 800;
+			border: none;
+			outline: none;
+			color: #6b9bbb;
+			background-color: #fff;
+			text-transform: uppercase;
+
+			&:hover {
+				background-color: #55a9ac1e;
+			}
+		}
+	}
+}

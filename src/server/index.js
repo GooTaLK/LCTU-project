@@ -7,7 +7,7 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 // Static files
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
 // Starting the server
 app.listen(app.get('port'), () => {

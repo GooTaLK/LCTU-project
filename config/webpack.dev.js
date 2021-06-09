@@ -15,21 +15,12 @@ const frontDevCfg = {
 
 	target: 'web',
 
-	devServer: {
-		port: 3001,
-		contentBase: '../dist/public',
-		open: 'edge',
-		hot: true,
-	},
-
-	module: {
-		rules: [
-			{
-				test: /\.s?(css|ass)$/i,
-				use: ['style-loader', 'css-loader' /* , 'sass-loader' */],
-			},
-		],
-	},
+	// devServer: {
+	// 	port: 3001,
+	// 	contentBase: '../dist/',
+	// 	open: 'edge',
+	// 	hot: true,
+	// },
 
 	plugins: [new HotModuleReplacementPlugin(), new ReactRefresWebpackPlugin()],
 };

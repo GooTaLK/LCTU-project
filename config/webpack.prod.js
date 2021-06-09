@@ -11,23 +11,12 @@ const frontProdCfg = {
 
 	devtool: 'source-map',
 
-	module: {
-		rules: [
-			{
-				test: /\.s?(css|ass)$/i,
-				use: [MiniCssExtractPlugin.loader, 'css-loader' /* , 'sass-loader' */],
-			},
-		],
-	},
-
 	optimization: {
 		splitChunks: {
 			chunks: 'all',
 			name: false,
 		},
 	},
-
-	plugins: [new MiniCssExtractPlugin()],
 };
 
 const backProdCfg = {

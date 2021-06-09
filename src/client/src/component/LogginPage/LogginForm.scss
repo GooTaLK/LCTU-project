@@ -1,0 +1,95 @@
+.log-form {
+	&__select-country {
+		padding: 1rem 0;
+		cursor: pointer;
+
+		label {
+			position: relative;
+			z-index: -1;
+			display: block;
+			color: #a1a1a1;
+			font-size: 0.75rem;
+			padding: 5px 0;
+		}
+
+		div {
+			padding: 0.5rem 0;
+			border-bottom: 1px #a1a1a1 solid;
+		}
+	}
+
+	.number-input__code,
+	.number-input__phone {
+		display: inline-block;
+
+		&-label {
+			display: block;
+			position: relative;
+			color: #a1a1a1;
+			font-size: 0.8rem;
+			padding: 5px 0;
+			z-index: -1;
+			transform-origin: left;
+			transform: scale(1.1) translateY(105%);
+			transition: transform 0.15s, fontSize 0.15s;
+		}
+
+		&-label--up {
+			transform: none;
+		}
+
+		&-input {
+			outline: none;
+			border: none;
+			background-color: transparent;
+			border-bottom: 1px solid #a1a1a1;
+			padding: 0.5rem 0;
+			width: 100%;
+
+			&:focus {
+				border-bottom: 1px solid #5682a3;
+			}
+		}
+	}
+
+	.number-input__code {
+		margin-right: 1rem;
+
+		&-input {
+			width: 50px;
+		}
+	}
+
+	.number-input__phone {
+		width: calc(100% - (1rem + 50px));
+	}
+
+	&__submit {
+		position: absolute;
+		top: -4rem;
+		right: 1rem;
+		background: none;
+		border: none;
+		outline: none;
+		color: #fafafa;
+		font-size: 0.9rem;
+		font-weight: 600;
+		padding: 1rem;
+		cursor: pointer;
+
+		i {
+			margin-left: 10px;
+		}
+	}
+}
+
+.number-input__phone.invalid-phone-number,
+.number-input__code.invalid-pre-code {
+	& > label {
+		color: tomato;
+	}
+
+	& > input {
+		border-bottom: 1px solid tomato;
+	}
+}

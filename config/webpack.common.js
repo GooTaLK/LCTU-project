@@ -5,13 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
 
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const frontConfig = {
-	entry: './src/public/index.js',
+	entry: './src/client/src/index.js',
 
 	output: {
-		path: path.resolve(__dirname, '../dist/public'),
-		filename: '[name]-bundle.[contenthash].js',
+		path: path.resolve(__dirname, '../dist/client'),
+		filename: '[name]-bundle.js',
+		assetModuleFilename: '[name][ext]',
 	},
 
 	module: {
@@ -41,6 +43,23 @@ const frontConfig = {
 					},
 				},
 			},
+
+			{
+				test: /\.png$/i,
+				type: 'asset/resource',
+			},
+
+			{
+				test: /\.(s?css|sass)$/i,
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						// options: { publicPath: './client' },
+					},
+					'css-loader',
+					'sass-loader',
+				],
+			},
 		],
 	},
 
@@ -50,8 +69,9 @@ const frontConfig = {
 
 	plugins: [
 		new CleanWebpackPlugin(),
+		new MiniCssExtractPlugin(),
 		new HtmlWebpackPlugin({
-			template: './src/public/index.html',
+			template: './src/client/public/index.html',
 		}),
 	],
 };
@@ -60,8 +80,8 @@ const backConfig = {
 	entry: './src/server/index.js',
 
 	output: {
-		path: path.resolve(__dirname, '../dist/server'),
-		filename: '[name]-bundle.[contenthash].js',
+		path: path.resolve(__dirname, '../dist'),
+		filename: 'index.js',
 	},
 
 	target: 'node',
