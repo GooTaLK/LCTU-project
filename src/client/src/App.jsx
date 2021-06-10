@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Loggin from './component/LogginPage/Loggin';
-// import Chat from './component/ChatPage/Chat';
+import Chat from './component/ChatPage/Chat';
 import ModalBackground from './component/ModalBackground/ModalBackground';
 import './App.scss';
 
@@ -80,7 +80,7 @@ const App = () => {
 					DB={{ usersLoggedDB, countryDataBase }}
 				/>
 			)}
-			{/* {log.logged && <Chat />} */}
+			{log.logged && <Chat />}
 			{modal.active && (
 				<ModalBackground
 					toClose={() => toggleModal({})}

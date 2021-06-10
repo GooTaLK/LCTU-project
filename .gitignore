@@ -3,4 +3,4 @@ node_modules
 # Production or Dev Files
 dist
 # Advance archive files
-src/client/src/component/ChatPage
+# src/client/src/component/ChatPage
