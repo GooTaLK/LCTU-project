@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import LogginConfirm from './LogginConfirm';
-import LogginCountryList from './LogginCountryList';
+import LogginConfirm from './Modals/LogginConfirm';
+import LogginCountryList from './Modals/LogginCountryList';
 import './LogginForm.scss';
 
 const LogginForm = ({
@@ -9,7 +9,6 @@ const LogginForm = ({
 	codeInput,
 	phoneInput,
 	countries,
-	usersLoggedDB,
 	setLog,
 }) => {
 	const [form, setForm] = useState({
@@ -41,6 +40,8 @@ const LogginForm = ({
 				setIntoInput,
 				phoneInput,
 				codeInput,
+				validationStyles,
+				setValidationStyles,
 			},
 		});
 	};
@@ -97,47 +98,60 @@ const LogginForm = ({
 		const preCode = e.target.preCode.value.trim();
 		const phoneNumber = e.target.phoneNumber.value.trim();
 		const fullPhone = preCode + ' ' + phoneNumber;
-
-		const callBackForConfirm = () => {
-			if (/^\+\d{1,5}$/.test(preCode) && /^\d{6,10}$/.test(phoneNumber)) {
-				const phoneValid =
-					usersLoggedDB.filter((user) => user.phoneNumber === phoneNumber)
-						.lenght !== 0;
-				const codeValid =
-					usersLoggedDB.filter((user) => user.preCode === preCode).lenght !== 0;
-
-				!phoneValid &&
-					setValidationStyles({ ...validationStyles, phoneNumber: false });
-				!codeValid &&
-					setValidationStyles({ ...validationStyles, preCode: false });
-
-				if (phoneValid && codeValid) {
-					const userId = usersLoggedDB.filter(
-						(user) =>
-							user.phoneNumber === phoneNumber && user.preCode === preCode
-					)[0]?.id;
-
-					userId === undefined
-						? setValidationStyles({ phoneNumber: false, preCode: false })
-						: setLog({ logged: true, fetchId: userId });
-
-					console.log('if de validacion en BD');
-				}
-
-				console.log('if de regExp');
-			} else {
-				setValidationStyles({
-					preCode: false,
-					phoneNumber: false,
-				});
-
-				console.log('else de regExp');
-			}
-
-			console.log('cb');
+		const test = {
+			preCode: /^\+\d{1,5}$/.test(preCode),
+			phoneNumber: /^\d{6,10}$/.test(phoneNumber),
 		};
 
-		if (phoneNumber === '' && preCode === '') {
+		const callBackForConfirm = async () => {
+			if (test.preCode || test.phoneNumber) {
+				let user;
+
+				const validateCode = () => {
+					return (
+						countries.filter((country) => country.prePhoneNumber === preCode)
+							.lenght !== 0
+					);
+				};
+
+				const getUser = async () => {
+					try {
+						const res = await fetch(`/api/users/${preCode}/${phoneNumber}`);
+						const data = await res.json();
+
+						window.sessionStorage.setItem('logged', 'true');
+						window.sessionStorage.setItem('user', JSON.stringify(data));
+						user = data;
+						return true;
+					} catch (err) {
+						console.log(err);
+						user = null;
+						return false;
+					}
+				};
+
+				const phoneValid = await getUser();
+				const codeValid = validateCode();
+
+				if (phoneValid || codeValid) {
+					user === null
+						? setValidationStyles({
+								phoneNumber: phoneValid,
+								preCode: codeValid,
+						  })
+						: setLog({ logged: true, user });
+				} else {
+					setValidationStyles({ phoneNumber: false, preCode: false });
+				}
+			} else {
+				setValidationStyles({
+					preCode: test.preCode,
+					phoneNumber: test.phoneNumber,
+				});
+			}
+		};
+
+		if (phoneNumber === '' || preCode === '') {
 			const empty = { phone: true, code: true };
 			phoneNumber === '' && (empty.phone = false);
 			preCode === '' && (empty.code = false);
@@ -183,6 +197,7 @@ const LogginForm = ({
 						onBlur={handleBlurInput}
 						onFocus={handleFocusInput}
 						value={form.preCode}
+						autoComplete="off"
 					/>
 				</div>
 				<div
@@ -209,6 +224,7 @@ const LogginForm = ({
 						onBlur={handleBlurInput}
 						onFocus={handleFocusInput}
 						value={form.phoneNumber}
+						autoComplete="off"
 					/>
 				</div>
 			</div>

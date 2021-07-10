@@ -1,0 +1,30 @@
+.search {
+	position: relative;
+
+	i {
+		color: #a1a1a1;
+		position: absolute;
+		top: 1.4rem;
+		left: 1.8rem;
+		transform: rotateZ(90deg);
+	}
+
+	&__input {
+		font-size: 0.7rem;
+		line-height: 1rem;
+		padding: 0.5rem;
+		padding-left: 2.5rem;
+		border: none;
+		border: 1px solid #f2f2f2;
+		border-radius: 4px;
+		outline: none;
+		margin: 0.8rem;
+		width: calc(100% - 1.6rem);
+		background-color: #f2f2f2;
+
+		&:focus {
+			border: 1px solid #ccc;
+			background-color: #fff;
+		}
+	}
+}

@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Loggin from './component/LogginPage/Loggin';
 import Chat from './component/ChatPage/Chat';
-import ModalBackground from './component/ModalBackground/ModalBackground';
+import ModalBackground from './component/CommonComponents/ModalBackground/ModalBackground';
+import './normalize.css';
 import './App.scss';
 
 // Temporal data base
+/*
 const usersLoggedDB = [
 	{
 		phoneNumber: '123456',
@@ -32,6 +34,7 @@ const usersLoggedDB = [
 		id: 4,
 	},
 ];
+*/
 const countryDataBase = [
 	{
 		country: 'Peru',
@@ -56,7 +59,7 @@ const countryDataBase = [
 ];
 
 const App = () => {
-	const [log, setLog] = useState({ logged: true, fetchId: null });
+	const [log, setLog] = useState({ logged: false, user: null });
 	const [modal, setModal] = useState({
 		active: false,
 		insideComponent: () => null,
@@ -71,19 +74,31 @@ const App = () => {
 		setModal({ active, insideComponent, params });
 	};
 
+	useEffect(() => {
+		const logged = window.sessionStorage.getItem('logged');
+		const user = window.sessionStorage.getItem('user');
+		const newLog = {};
+
+		logged && (newLog.logged = true);
+		user && (newLog.user = user);
+		setLog(newLog);
+	}, []);
+
 	return (
 		<div className={log.logged ? 'App' : 'App bg-log'}>
 			{!log.logged && (
 				<Loggin
 					setLog={setLog}
 					toggleModal={toggleModal}
-					DB={{ usersLoggedDB, countryDataBase }}
+					DB={{ countryDataBase }}
 				/>
 			)}
-			{log.logged && <Chat />}
+			{log.logged && (
+				<Chat user={log.user} toggleModal={toggleModal} setLog={setLog} />
+			)}
 			{modal.active && (
 				<ModalBackground
-					toClose={() => toggleModal({})}
+					toggleModal={toggleModal}
 					Component={modal.insideComponent}
 					{...modal.params}
 				/>

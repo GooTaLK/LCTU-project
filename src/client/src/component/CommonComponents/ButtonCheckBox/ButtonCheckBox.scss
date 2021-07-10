@@ -1,0 +1,40 @@
+.button_check-box {
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+
+	p {
+		margin: 0;
+	}
+
+	span {
+		background-color: #bfd9ed;
+		height: 14px;
+		width: 36px;
+		border-radius: 8px;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: -3px;
+			height: 20px;
+			width: 20px;
+			border: 1px solid #6b9bc2;
+			border-radius: 50%;
+			background-color: #6b9bc2;
+			transition: transform 0.2s;
+		}
+
+		&.checked {
+			background-color: #e6e6e6;
+
+			&::before {
+				transform: translateX(-16px);
+				background-color: #fff;
+				border: 1px solid #e7e7e7;
+			}
+		}
+	}
+}

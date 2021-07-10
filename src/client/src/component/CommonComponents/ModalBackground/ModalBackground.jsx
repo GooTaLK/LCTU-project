@@ -1,7 +1,8 @@
 import './ModalBackground.scss';
 
-const ModalBackground = ({ toClose, Component, ...props }) => {
-	const handleClickClose = () => toClose();
+const ModalBackground = ({ toggleModal, Component, ...props }) => {
+	const handleClickClose = () =>
+		toggleModal({ active: false, insideComponent: () => null });
 
 	return (
 		<div className="modal-bg" onClick={handleClickClose}>
@@ -9,7 +10,7 @@ const ModalBackground = ({ toClose, Component, ...props }) => {
 				<i className="fas fa-times"></i>
 			</div>
 
-			<Component {...props} />
+			<Component toggleModal={toggleModal} {...props} />
 		</div>
 	);
 };

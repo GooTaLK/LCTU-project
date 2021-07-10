@@ -1,0 +1,34 @@
+[
+	{
+		"name": "Hansu",
+		"contacts": [],
+		"avatar": "",
+		"phoneNumber": 123456,
+		"preCode": "+81",
+		"country": "Japan"
+	},
+	{
+		"name": "Joew",
+		"contacts": [],
+		"avatar": "",
+		"phoneNumber": 60782825,
+		"preCode": "+1",
+		"country": "United Stade"
+	},
+	{
+		"name": "Ricardo",
+		"contacts": [],
+		"avatar": "",
+		"phoneNumber": 322322,
+		"preCode": "+34",
+		"country": "Spain"
+	},
+	{
+		"name": "Quispe",
+		"contacts": [],
+		"avatar": "",
+		"phoneNumber": 999434322,
+		"preCode": "+51",
+		"country": "Peru"
+	}
+]

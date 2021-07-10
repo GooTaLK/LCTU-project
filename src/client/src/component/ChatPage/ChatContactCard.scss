@@ -1,0 +1,55 @@
+.contact__card {
+	font-size: 13px;
+	padding: 7px 16px;
+	height: 62px;
+	background-color: #5682a3;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	width: inherit;
+	cursor: pointer;
+
+	.profile-img {
+		margin-right: 15px;
+	}
+
+	.card-text-wraper {
+		overflow-x: hidden;
+		flex-grow: 1;
+	}
+
+	&__name,
+	&__last-msg {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow-x: hidden;
+	}
+
+	&__name {
+		font-weight: 700;
+		margin-top: 6px;
+	}
+
+	&__last-msg {
+		margin: 6px 0;
+	}
+
+	&__date {
+		color: #fff;
+		font-size: 0.7rem;
+		align-self: flex-start;
+	}
+
+	&.not-select {
+		background-color: transparent;
+		color: #000;
+
+		& .contact__card__date {
+			color: #b8b8b8;
+		}
+
+		&:hover {
+			background-color: #5682a315;
+		}
+	}
+}

@@ -5,11 +5,7 @@ import LogginFooter from './LogginFooter';
 import './Loggin.scss';
 import '../../../public/assets/telegram-icons.png';
 
-const Loggin = ({
-	setLog,
-	toggleModal,
-	DB: { usersLoggedDB, countryDataBase },
-}) => {
+const Loggin = ({ setLog, toggleModal, DB: { countryDataBase } }) => {
 	const codeInput = useRef();
 	const phoneInput = useRef();
 
@@ -50,7 +46,6 @@ const Loggin = ({
 				phoneInput={phoneInput}
 				countries={countries}
 				setLog={setLog}
-				usersLoggedDB={usersLoggedDB}
 			/>
 
 			<LogginFooter />

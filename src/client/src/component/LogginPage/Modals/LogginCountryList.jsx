@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
 
+import InputSearch from '../../CommonComponents/InputSearch/InputSearch';
+import ModalCard from '../../CommonComponents/ModalCard/ModalCard';
 import './LogginCountryList.scss';
 
 const LogginCountryList = ({
@@ -10,6 +12,8 @@ const LogginCountryList = ({
 	countries,
 	phoneInput,
 	setIntoInput,
+	validationStyles,
+	setValidationStyles,
 }) => {
 	const [searchValue, setSearchValue] = useState('');
 	const [countriesFilter, setCountriesFilter] = useState(countries);
@@ -24,10 +28,6 @@ const LogginCountryList = ({
 		setSearchValue(e.target.value);
 	};
 
-	const handleClickClose = () => {
-		toggleModal({ active: false });
-	};
-
 	const handleClickCountry = (e) => {
 		const country =
 			e.target.dataset.country || e.target.parentElement.dataset.country;
@@ -40,41 +40,38 @@ const LogginCountryList = ({
 		});
 		phoneInput.current.focus();
 		setIntoInput({ phoneNumberLabel: true, preCodeLabel: true });
+		setValidationStyles({ ...validationStyles, preCode: true });
 		toggleModal({ active: false });
 	};
 
-	return (
-		<div className="country-list" onClick={(e) => e.stopPropagation()}>
-			<div className="country-list__topbar card-topbar">
-				<span>Country</span>
-				<span onClick={handleClickClose}>Close</span>
-			</div>
-			<div className="country-list__container">
-				<div className="country-list__container-search">
-					<i className="fas fa-search"></i>
-					<input
-						className="country-list__container-search__input"
-						type="search"
-						placeholder="Search..."
-						value={searchValue}
-						onChange={handleChangeSearch}
-					/>
-				</div>
-				<ul className="country-list__container-list">
-					{countriesFilter.map((country) => (
-						<li
-							key={uuidV4()}
-							data-country={country.country}
-							data-pre={country.prePhoneNumber}
-							onClick={handleClickCountry}
-						>
-							<span>{country.country}</span>
-							<span>{country.prePhoneNumber}</span>
-						</li>
-					))}
-				</ul>
-			</div>
+	const Content = () => (
+		<div className="country-list__container">
+			<InputSearch
+				searchValue={searchValue}
+				handleChangeSearch={handleChangeSearch}
+			/>
+			<ul className="country-list__container-list">
+				{countriesFilter.map((country) => (
+					<li
+						key={uuidV4()}
+						data-country={country.country}
+						data-pre={country.prePhoneNumber}
+						onClick={handleClickCountry}
+					>
+						<span>{country.country}</span>
+						<span>{country.prePhoneNumber}</span>
+					</li>
+				))}
+			</ul>
 		</div>
+	);
+
+	return (
+		<ModalCard
+			title="Countries"
+			content={{ content: Content }}
+			toggleModal={toggleModal}
+		/>
 	);
 };
 

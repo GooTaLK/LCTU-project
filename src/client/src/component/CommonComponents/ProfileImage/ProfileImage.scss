@@ -1,0 +1,23 @@
+.profile-img {
+	width: var(--size);
+	height: var(--size);
+	// width: [data-size];
+	// height: [data-size];
+	border-radius: 50%;
+	object-fit: cover;
+
+	// &.sm {
+	// 	width: 42px;
+	// 	height: 42px;
+	// }
+
+	// &.md {
+	// 	width: 48px;
+	// 	height: 48px;
+	// }
+
+	// &.bg {
+	// 	width: 52px;
+	// 	height: 52px;
+	// }
+}

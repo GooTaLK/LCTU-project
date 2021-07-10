@@ -1,0 +1,69 @@
+.message-card {
+	position: relative;
+	cursor: pointer;
+	font-size: 0.8rem;
+	line-height: 18px;
+
+	.select-icon {
+		position: absolute;
+		top: 1rem;
+		left: 5vmin;
+		visibility: hidden;
+		border-radius: 50%;
+		color: #fff;
+		font-size: 0.8rem;
+		padding: 8px 5px 5px 5px;
+
+		@media (max-width: 900px) {
+			display: none;
+		}
+	}
+
+	.message {
+		width: calc(100% - 160px);
+		margin-left: auto;
+		margin-right: auto;
+		padding: 8px 15px 8px 15px;
+		display: grid;
+		grid-template-columns: 60px auto auto;
+
+		.profile-img {
+			grid-row: 1/3;
+		}
+
+		&__name {
+			color: #4a6fa0;
+			font-weight: 700;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		&__message {
+			max-width: 325px;
+			word-break: break-word;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+
+		&__date {
+			color: #b8b8b8;
+			text-align: right;
+			font-size: 0.9em;
+		}
+
+		@media (max-width: 900px) {
+			width: calc(100% - 30px);
+		}
+	}
+
+	&.selected {
+		background-color: #18516ba4;
+	}
+
+	&:hover > .select-icon {
+		background-color: #b3cadb;
+		visibility: visible;
+	}
+}

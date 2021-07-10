@@ -1,15 +1,16 @@
 {
 	"name": "chat-to-up",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "A project by a beginer",
 	"main": "index.js",
 	"scripts": {
 		"build": "webpack --config config/webpack.prod.js",
 		"dev": "webpack --watch --config config/webpack.dev.js",
-		"start": "npm run build \n node dist/server"
+		"start": "npm run build && node dist"
 	},
 	"keywords": [
-		"chatting",
+		"telegram web clone",
+		"chat",
 		"gootalk"
 	],
 	"author": "gootalk",
@@ -22,6 +23,7 @@
 		"babel-loader": "^8.2.2",
 		"clean-webpack-plugin": "^4.0.0-alpha.0",
 		"css-loader": "^5.2.6",
+		"dotenv": "^10.0.0",
 		"html-webpack-plugin": "^5.3.1",
 		"mini-css-extract-plugin": "^1.6.0",
 		"nodemon-webpack-plugin": "^4.5.2",

@@ -1,0 +1,31 @@
+.country-list__container {
+	max-width: 388px;
+	width: calc(100vw - 20px);
+	height: 470px;
+
+	&-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			padding: 0.8rem 1.8rem;
+			display: flex;
+			justify-content: space-between;
+			font-size: 0.75rem;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #5978ad10;
+			}
+
+			&:hover span:nth-child(2) {
+				color: #5978ad;
+			}
+
+			span:nth-child(2) {
+				color: #a1a1a1;
+			}
+		}
+	}
+}

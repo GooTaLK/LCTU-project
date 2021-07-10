@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 
 import useClickOutside from '../../hooks/useClickOutside';
 
-const ChatHeader = () => {
+import ChatSettingsModal from './Modals/ChatSettingsModal';
+import './ChatHeader.scss';
+import ChatUserInfo from './Modals/ChatUserInfo';
+
+const ChatHeader = ({ user, toggleModal, setLog }) => {
 	const [leftMenu, setLeftMenu] = useState(false);
 	const [rightMenu, setRightMenu] = useState(false);
 
@@ -16,6 +20,23 @@ const ChatHeader = () => {
 	const handleClickToggleMenu = (stringMenu) => {
 		stringMenu === 'left' && setLeftMenu(!leftMenu);
 		stringMenu === 'right' && setRightMenu(!rightMenu);
+	};
+
+	const handleClickSettings = () => {
+		handleClickToggleMenu('left');
+		toggleModal({
+			active: true,
+			insideComponent: ChatSettingsModal,
+			params: { setLog, toggleModal },
+		});
+	};
+
+	const handleClickUserInfo = () => {
+		toggleModal({
+			active: true,
+			insideComponent: ChatUserInfo,
+			params: { toggleModal },
+		});
 	};
 
 	return (
@@ -37,7 +58,7 @@ const ChatHeader = () => {
 						</a>
 					</li>
 
-					<li className="left__menu__item">
+					<li className="left__menu__item" onClick={handleClickSettings}>
 						<a>
 							<i className="fas fa-cog"></i>Settings
 						</a>
@@ -45,7 +66,7 @@ const ChatHeader = () => {
 
 					<li className="left__menu__item">
 						<a href="/" target="_blank">
-							<i className="fas fa-question-circle"></i>Frequent questions
+							<i className="fas fa-question-circle"></i>Telegram FAQ
 						</a>
 					</li>
 
@@ -70,7 +91,9 @@ const ChatHeader = () => {
 				</div>
 			</div>
 			<div className="chat-header__right">
-				<div className="right__user-info">User info</div>
+				<div className="right__user-info" onClick={handleClickUserInfo}>
+					User info
+				</div>
 
 				<div className="right__search-btn">
 					<i className="fas fa-search"></i>
@@ -88,7 +111,7 @@ const ChatHeader = () => {
 					className={rightMenu ? 'right__menu open' : 'right__menu'}
 					ref={$rightMenu}
 				>
-					<li className="right__menu__item">Chose messages</li>
+					<li className="right__menu__item">Select messages</li>
 
 					<li className="right__menu__line-divider"></li>
 
@@ -100,7 +123,7 @@ const ChatHeader = () => {
 
 					<li className="right__menu__item">Audios</li>
 
-					<li className="right__menu__item">Links</li>
+					<li className="right__menu__item">Shared links</li>
 
 					<li className="right__menu__item">Voice messages</li>
 

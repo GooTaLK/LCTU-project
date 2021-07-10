@@ -1,10 +1,13 @@
 import ChatHeader from './ChatHeader';
+import ChatBody from './ChatBody';
 import './Chat.scss';
 
-const Chat = () => {
+const Chat = ({ user, toggleModal, setLog }) => {
 	return (
 		<div className="chat">
-			<ChatHeader />
+			<ChatHeader user={user} toggleModal={toggleModal} setLog={setLog} />
+			<ChatBody />
+			<footer className="chat__empty-footer" />
 		</div>
 	);
 };
