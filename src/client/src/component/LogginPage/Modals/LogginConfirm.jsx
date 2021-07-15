@@ -1,6 +1,10 @@
+import React, { useEffect, useRef } from 'react';
+
 import './LogginConfirm.scss';
 
 const LogginConfirm = ({ toggleModal, value, cb }) => {
+	const okBtn = useRef();
+
 	const onClickCancel = () => {
 		toggleModal({ active: false });
 	};
@@ -9,6 +13,10 @@ const LogginConfirm = ({ toggleModal, value, cb }) => {
 		toggleModal({ active: false });
 		cb();
 	};
+
+	useEffect(() => {
+		okBtn.current.focus();
+	}, []);
 
 	return (
 		<div className="confirm" onClick={(e) => e.stopPropagation()}>
@@ -20,7 +28,7 @@ const LogginConfirm = ({ toggleModal, value, cb }) => {
 				<button className="confirm__btn-cancel" onClick={onClickCancel}>
 					Calcel
 				</button>
-				<button className="confirm__btn-ok" onClick={onClickOk}>
+				<button className="confirm__btn-ok" onClick={onClickOk} ref={okBtn}>
 					Ok
 				</button>
 			</div>
