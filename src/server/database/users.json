@@ -1,31 +1,55 @@
 [
 	{
-		"name": "Hansu",
+		"username": "goru",
+		"lastName": "Kankeinai",
+		"firstName": "Nauji",
 		"contacts": [],
+		"state": {
+			"online": false,
+			"stateText": "Offline"
+		},
 		"avatar": "",
 		"phoneNumber": 123456,
 		"preCode": "+81",
 		"country": "Japan"
 	},
 	{
-		"name": "Joew",
+		"username": "standarj",
+		"lastName": "Standar",
+		"firstName": "Joew",
 		"contacts": [],
+		"state": {
+			"online": false,
+			"stateText": "Offline"
+		},
 		"avatar": "",
 		"phoneNumber": 60782825,
 		"preCode": "+1",
 		"country": "United Stade"
 	},
 	{
-		"name": "Ricardo",
+		"username": "",
+		"lastName": "Españita",
+		"firstName": "Arriba",
 		"contacts": [],
+		"state": {
+			"online": false,
+			"stateText": "Offline"
+		},
 		"avatar": "",
 		"phoneNumber": 322322,
 		"preCode": "+34",
 		"country": "Spain"
 	},
 	{
-		"name": "Quispe",
+		"username": "",
+		"lastName": "Casiro",
+		"firstName": "Vlado",
 		"contacts": [],
+		"state": {
+			"online": false,
+			"stateText": "Offline"
+		},
 		"avatar": "",
 		"phoneNumber": 999434322,
 		"preCode": "+51",

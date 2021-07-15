@@ -27,7 +27,7 @@ const ChatHeader = ({ user, toggleModal, setLog }) => {
 		toggleModal({
 			active: true,
 			insideComponent: ChatSettingsModal,
-			params: { setLog, toggleModal },
+			params: { user, setLog, toggleModal },
 		});
 	};
 

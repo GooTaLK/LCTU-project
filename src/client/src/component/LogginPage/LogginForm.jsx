@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import LogginConfirm from './Modals/LogginConfirm';
 import LogginCountryList from './Modals/LogginCountryList';
 import './LogginForm.scss';
+import useGetUserAndState from '../../hooks/useGetUserAndState';
 
 const LogginForm = ({
 	toggleModal,
@@ -98,34 +99,30 @@ const LogginForm = ({
 		const preCode = e.target.preCode.value.trim();
 		const phoneNumber = e.target.phoneNumber.value.trim();
 		const fullPhone = preCode + ' ' + phoneNumber;
+		const ulrToFetch = `/api/user/${preCode}/${phoneNumber}`;
 		const test = {
 			preCode: /^\+\d{1,5}$/.test(preCode),
 			phoneNumber: /^\d{6,10}$/.test(phoneNumber),
 		};
 
 		const callBackForConfirm = async () => {
-			if (test.preCode || test.phoneNumber) {
-				let user;
-
+			const validatePhoneNumber = async () => {
 				const validateCode = () => {
-					return (
-						countries.filter((country) => country.prePhoneNumber === preCode)
-							.lenght !== 0
+					const country = countries.filter(
+						(country) => country.prePhoneNumber === preCode
 					);
+					return country.lenght !== 0;
 				};
 
 				const getUser = async () => {
 					try {
-						const res = await fetch(`/api/users/${preCode}/${phoneNumber}`);
+						const res = await fetch(ulrToFetch);
 						const data = await res.json();
 
-						window.sessionStorage.setItem('logged', 'true');
-						window.sessionStorage.setItem('user', JSON.stringify(data));
-						user = data;
+						if (data.success === false) return false;
 						return true;
-					} catch (err) {
-						console.log(err);
-						user = null;
+					} catch (error) {
+						console.log(error);
 						return false;
 					}
 				};
@@ -133,21 +130,35 @@ const LogginForm = ({
 				const phoneValid = await getUser();
 				const codeValid = validateCode();
 
-				if (phoneValid || codeValid) {
-					user === null
-						? setValidationStyles({
-								phoneNumber: phoneValid,
-								preCode: codeValid,
-						  })
-						: setLog({ logged: true, user });
+				if (phoneValid === false || codeValid === false) {
+					setValidationStyles({ phoneNumber: phoneValid, preCode: codeValid });
+					return false;
 				} else {
-					setValidationStyles({ phoneNumber: false, preCode: false });
+					return true;
 				}
-			} else {
+			};
+
+			const logUserIfValid = async (isValid) => {
+				if (isValid) {
+					const user = await useGetUserAndState(ulrToFetch, true);
+					setLog({ logged: true, user });
+				}
+			};
+
+			const socketioConnection = (isValid) => {
+				isValid && console.log('socketio time');
+			};
+
+			if (!test.preCode || !test.phoneNumber) {
 				setValidationStyles({
 					preCode: test.preCode,
 					phoneNumber: test.phoneNumber,
 				});
+			} else {
+				const isValid = await validatePhoneNumber();
+
+				await logUserIfValid(isValid);
+				socketioConnection();
 			}
 		};
 

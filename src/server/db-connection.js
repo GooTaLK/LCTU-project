@@ -9,9 +9,10 @@ mongoose
 	.connect(uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		useFindAndModify: false,
 		// useCreateIndex: true,
 	})
-	.then(console.log('++++ Database connected to ' + uri + ' ++++'))
+	// .then(console.log('++++ Database connected to ' + uri + ' ++++'))
 	.catch((err) => console.log(err));
 
 const db = mongoose.connection;

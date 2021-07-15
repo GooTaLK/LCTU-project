@@ -5,9 +5,10 @@ import ButtonForModal from '../../CommonComponents/ButtonForModal/ButtonForModal
 import ModalCard from '../../CommonComponents/ModalCard/ModalCard';
 import HeaderProfile from '../../CommonComponents/ModalHeaderForProfile/HeaderProfile';
 import ShowNameValue from '../../CommonComponents/ShowNameValue/ShowNameValue';
+import useGetUserAndState from '../../../hooks/useGetUserAndState';
 import './ChatSettingsModal.scss';
 
-const ChatSettingsModal = ({ setLog, toggleModal }) => {
+const ChatSettingsModal = ({ user, setLog, toggleModal }) => {
 	const CentralBtn = () => <i className="fas fa-camera"></i>;
 
 	const Header = () => (
@@ -23,10 +24,15 @@ const ChatSettingsModal = ({ setLog, toggleModal }) => {
 		const radioNormal = useRef();
 
 		const handleClickLogOutBtn = () => {
-			window.sessionStorage.removeItem('logged');
-			window.sessionStorage.removeItem('user');
+			const preCode = user.preCode;
+			const phoneNumber = user.phoneNumber;
+
 			setLog({ logged: false, user: null });
 			toggleModal({ active: false, insideComponent: () => null });
+			useGetUserAndState(
+				`http://localhost:3300/api/user/${preCode}/${phoneNumber}`,
+				false
+			);
 		};
 
 		const handleClickRadio = (e) => {

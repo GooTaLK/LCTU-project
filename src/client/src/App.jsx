@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Loggin from './component/LogginPage/Loggin';
 import Chat from './component/ChatPage/Chat';
@@ -58,8 +58,11 @@ const countryDataBase = [
 	},
 ];
 
-const App = () => {
-	const [log, setLog] = useState({ logged: false, user: null });
+const App = ({ initialLog }) => {
+	const firstUpdate = useRef(true);
+	const [log, setLog] = useState(
+		initialLog /* { logged: false, user: null } */
+	);
 	const [modal, setModal] = useState({
 		active: false,
 		insideComponent: () => null,
@@ -75,14 +78,36 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		const logged = window.sessionStorage.getItem('logged');
-		const user = window.sessionStorage.getItem('user');
-		const newLog = {};
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+			return;
+		}
 
-		logged && (newLog.logged = true);
-		user && (newLog.user = user);
-		setLog(newLog);
-	}, []);
+		if (log.logged) {
+			window.localStorage.setItem('logged', 'true');
+			window.localStorage.setItem('user', JSON.stringify(log.user));
+		} else {
+			window.localStorage.removeItem('logged');
+			window.localStorage.removeItem('user');
+		}
+	}, [log]);
+
+	// useEffect(() => {
+	// 	const logged = window.localStorage.getItem('logged');
+	// 	const user = window.localStorage.getItem('user');
+	// 	const newLog = { logged: false, user: null };
+
+	// 	console.log('There are trees everywhere!');
+
+	// 	if (logged === 'true') newLog.logged = true;
+	// 	if (user && user !== 'null') newLog.user = JSON.parse(user);
+
+	// 	if (newLog.logged && newLog.user !== null) setLog(newLog);
+	// }, []);
+
+	// useEffect(() => {
+	// 	console.log('Oops!');
+	// });
 
 	return (
 		<div className={log.logged ? 'App' : 'App bg-log'}>
