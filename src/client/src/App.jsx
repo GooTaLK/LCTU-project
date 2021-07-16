@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Loggin from './component/LogginPage/Loggin';
 import Chat from './component/ChatPage/Chat';
 import ModalBackground from './component/CommonComponents/ModalBackground/ModalBackground';
+import useUpdateUser from './hooks/useUpdateUser';
 import './normalize.css';
 import './App.scss';
 
@@ -80,6 +81,9 @@ const App = ({ initialLog }) => {
 	useEffect(() => {
 		if (firstUpdate.current) {
 			firstUpdate.current = false;
+
+			useUpdateUser(log, setLog);
+
 			return;
 		}
 
