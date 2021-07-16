@@ -6,7 +6,7 @@ const Chat = ({ user, toggleModal, setLog }) => {
 	return (
 		<div className="chat">
 			<ChatHeader user={user} toggleModal={toggleModal} setLog={setLog} />
-			<ChatBody />
+			<ChatBody user={user} />
 			<footer className="chat__empty-footer" />
 		</div>
 	);

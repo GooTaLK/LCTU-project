@@ -2,11 +2,11 @@ import ChatBodyContact from './ChatBodyContact';
 import ChatBodyInbox from './ChatBodyInbox';
 import './ChatBody.scss';
 
-const ChatBody = () => {
+const ChatBody = ({ user }) => {
 	return (
 		<div className="chat-body">
-			<ChatBodyContact />
-			<ChatBodyInbox />
+			<ChatBodyContact contacts={user.contacts} />
+			<ChatBodyInbox user={user} />
 		</div>
 	);
 };

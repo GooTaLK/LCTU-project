@@ -9,6 +9,7 @@ import ChatUserInfo from './Modals/ChatUserInfo';
 const ChatHeader = ({ user, toggleModal, setLog }) => {
 	const [leftMenu, setLeftMenu] = useState(false);
 	const [rightMenu, setRightMenu] = useState(false);
+	const [rightSide, setRightSide] = useState(true);
 
 	const { btnRef: $btnLeftMenu, ref: $leftMenu } = useClickOutside(() =>
 		setLeftMenu(false)
@@ -90,7 +91,7 @@ const ChatHeader = ({ user, toggleModal, setLog }) => {
 					<span className="left__menu-btn__logo">Telegram</span>
 				</div>
 			</div>
-			<div className="chat-header__right">
+			<div className={rightSide ? "chat-header__right active" : "chat-header__right"}> 
 				<div className="right__user-info" onClick={handleClickUserInfo}>
 					User info
 				</div>
